@@ -131,7 +131,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     petList.forEach((pet) => {
       const petItem = document.createElement("div");
-      div.innerHTML = `<h3>${pet.petName}</h3>`;
+      petItem.classList.add("card");
+      div.innerHTML = `<img class="card-img-top" src="${pet.imageUrl}" alt="Title" />
+        <div class="card-body">
+            <h4 class="card-title">${pet.petName}</h4>
+            <p class="card-text">${pet.description}</p>
+        </div>
+      `;
       div.appendChild(petItem);
     });
   }
