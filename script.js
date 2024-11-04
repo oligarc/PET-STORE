@@ -90,9 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function checkImageUrl(url) {
-    // Regular expression to check for valid image URL formats
+    const trimmedUrl = url.trim(); // Elimina espacios al principio y al final
     const imagePattern = /\.(jpg|jpeg|png|gif)$/i;
-    return imagePattern.test(url);
+    return imagePattern.test(trimmedUrl);
   }
 
   function checkFuture(birthdate) {
@@ -126,9 +126,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function renderPets() {
     const div = document.querySelector(".pet-list");
-    div.innerHTML = "";
 
     //FOLLOW RIGHT THERE. THINK IM GONNA USE A BS5 CARD
+
+    petList.forEach((pet) => {
+      const petItem = document.createElement("div");
+      div.innerHTML = `<h3>${pet.petName}</h3>`;
+      div.appendChild(petItem);
+    });
   }
 
   petForm.addEventListener("submit", function (event) {
