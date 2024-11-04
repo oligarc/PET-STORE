@@ -34,6 +34,7 @@
               id="petName"
               class="form-control"
             />
+            <div class="error-message"></div>
           </div>
 
           <div class="inputs">
@@ -44,11 +45,13 @@
               id="petDesc"
               class="form-control"
             />
+            <div class="error-message"></div>
           </div>
 
           <div class="inputs">
             <label for="petUrl">Image URL:</label>
             <input type="url" name="petUrl" id="petUrl" class="form-control" />
+            <div class="error-message"></div>
           </div>
 
           <div class="inputs">
@@ -59,16 +62,21 @@
               id="petbirth"
               class="form-control"
             />
+            <div class="error-message"></div>
           </div>
 
           <div class="inputs">
             <label for="petPrice">Price:</label>
             <input
               type="number"
+              step="0.01"
+              min="1"
+              max="10000"
               name="petPrice"
               id="petPrice"
               class="form-control"
             />
+            <div class="error-message"></div>
           </div>
 
           <div class="inputs">
@@ -79,6 +87,7 @@
               id="petCode"
               class="form-control"
             />
+            <div class="error-message"></div>
           </div>
 
           <div class="inputs">
@@ -89,9 +98,11 @@
           <input
             type="submit"
             class="btn btn-danger form-control"
-            value="Send"
+            value="Add Pet"
           />
         </form>
+
+        <div class="pet-list"></div>
       </div>
     </main>
     <footer>
@@ -109,5 +120,7 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
+
+    <script src="script.js"></script>
   </body>
 </html>

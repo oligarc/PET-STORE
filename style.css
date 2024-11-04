@@ -34,3 +34,13 @@ footer {
   background-color: #bb2d3b;
   text-align: center;
 }
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  display: none;
+}
+
+.is-not-valid-field {
+  border-color: red;
+}
