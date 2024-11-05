@@ -44,3 +44,7 @@ footer {
 .is-not-valid-field {
   border-color: red;
 }
+
+span {
+  font-weight: lighter;
+}

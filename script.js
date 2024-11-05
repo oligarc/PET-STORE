@@ -1,7 +1,11 @@
+import { PetList } from "./petList.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM fully-loaded");
 
-  const petList = []; //Array where Im gonna have my pets.
+  //const petList = []; //Array where Im gonna have my pets. Instead of this Im gonna use an instance of my petList class
+
+  const petListInstance = new PetList();
 
   //Capturing the inputs
 
@@ -124,24 +128,46 @@ document.addEventListener("DOMContentLoaded", function () {
     element.parentNode.classList.remove("is-not-valid-field");
   }
 
+  /* This is gonna be in my petList.js
+   
+
   function renderPets() {
     const div = document.querySelector(".pet-list");
-
-    //FOLLOW RIGHT THERE. THINK IM GONNA USE A BS5 CARD
-
+    div.innerHTML = "";
     petList.forEach((pet) => {
       const petItem = document.createElement("div");
-      petItem.classList.add("card");
-      petItem.innerHTML = `<img class="card-img-top" src="${pet.imageUrl}" alt="Title" />
+      petItem.classList.add("card", "mt-2");
+      petItem.style.width = "20%";
+      petItem.innerHTML = `<img class="card-img-top" src="${
+        pet.imageUrl
+      }" alt="Title" />
         <div class="card-body">
-            <h4 class="card-title">${pet.petName}</h4>
-            <p class="card-text">${pet.description}</p>
+            <h4 class="card-title">Name: ${pet.petName}</h4>
+            <p class="card-text" style="font-weight: bold;">Description: <span> ${
+              pet.description
+            } </span></p>
+            <p class="card-text" style="font-weight: bold;">Price: <span> ${
+              pet.price
+            } € but it has no price </span></p>
+            <p class="card-text" style="font-weight: bold;">Birthday: <span> ${
+              pet.birthday
+            } </span></p>
+            <p class="card-text" style="font-weight: bold;">Code: <span> ${
+              pet.code
+            } </span> </p>
+            <p class="card-text" style="font-weight: bold;">Has any owner? : <span> ${
+              pet.sold
+                ? "Of course. It's mine"
+                : "It hadn't any owner until now"
+            }</span></p>
         </div>
       `;
       div.appendChild(petItem);
       console.log(petList);
     });
   }
+
+  */
 
   petForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -157,8 +183,9 @@ document.addEventListener("DOMContentLoaded", function () {
         sold: sold.checked,
       }; //Adding a new pet object once the form is validated
 
-      petList.push(newPet);
-      renderPets();
+      //petList.push(newPet);
+      //renderPets();
+      petListInstance.addPet(newPet);
     } else {
       console.log("Form is not valid.");
     }
