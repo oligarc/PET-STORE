@@ -48,3 +48,7 @@ footer {
 span {
   font-weight: lighter;
 }
+
+.pet-list {
+  display: none;
+}

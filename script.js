@@ -3,8 +3,10 @@ import { PetList } from "./petList.js";
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM fully-loaded");
 
+  //That array is deprecated because instead I used a general class that stores an array with CRUD methods
   //const petList = []; //Array where Im gonna have my pets. Instead of this Im gonna use an instance of my petList class
 
+  //This is the instance of the new class
   const petListInstance = new PetList();
 
   //Capturing the inputs
@@ -18,6 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const petCode = document.getElementById("petCode");
   const sold = document.getElementById("petSold");
 
+  //Im taking the button see-pets to show them, I also need the container where I'm showing the pets in orden to make a display none and display block
+  const seePetsButton = document.getElementById("see-pets");
+  const petListContainer = document.querySelector(".pet-list");
+
+  //Functions to validate the form, when isValid = true, we can submit it.
   function validateForm() {
     let isValid = true;
 
@@ -89,15 +96,19 @@ document.addEventListener("DOMContentLoaded", function () {
     return isValid;
   }
 
+  //Checking any input of the form is not empty
   function checkEmptyInputs(input) {
     return input.value.trim().length > 0;
   }
 
+  //Checking the url input uses that extensions
   function checkImageUrl(url) {
     const trimmedUrl = url.trim(); // Elimina espacios al principio y al final
     const imagePattern = /\.(jpg|jpeg|png|gif)$/i;
     return imagePattern.test(trimmedUrl);
   }
+
+  //Function to check we don't have a time traveller pet
 
   function checkFuture(birthdate) {
     const bir = new Date(birthdate);
@@ -128,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     element.parentNode.classList.remove("is-not-valid-field");
   }
 
+  //This is gonna render the container in the HTML
   function renderPets(petList) {
     const div = document.querySelector(".pet-list");
     div.innerHTML = "";
@@ -158,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 : "It hadn't any owner until now"
             }</span></p>
             <button class="btn btn-danger mt-2" data-pet-code="${
+              //data-pet-code is gonna store the petcode for each pet
               pet.code
             }">Delete Pet</button>
             <button class="btn btn-info mt-2">Edit Pet</button>
@@ -166,20 +179,27 @@ document.addEventListener("DOMContentLoaded", function () {
       div.appendChild(petItem);
     });
 
+    //onclick wasn't working so I added a click event listener, when you push in that button, it gets the petCode and proceeds to delete the pet
     const deleteButtons = div.querySelectorAll("button.btn-danger");
     deleteButtons.forEach((button) => {
       button.addEventListener("click", (event) => {
-        const petCode = event.target.getAttribute("data-pet-code");
+        const petCode = event.target.getAttribute("data-pet-code"); //Gets the petCode to delete the pet with that code
         console.log("Deleting pet with code:", petCode);
         deletePet(petCode);
       });
     });
   }
 
+  //The pets are gonna be shown only when I want it.
+  seePetsButton.addEventListener("click", (event) => {
+    petListContainer.style.display = "block";
+    renderPets(petListInstance.readPets());
+  });
+
   function deletePet(petCode) {
     console.log("Deleting pet with code:", petCode);
     petListInstance.deletePet(petCode);
-    renderPets(petListInstance.readPets());
+    //renderPets(petListInstance.readPets());
   }
 
   petForm.addEventListener("submit", function (event) {
@@ -198,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       //petList.push(newPet);
       petListInstance.addPet(newPet);
-      renderPets(petListInstance.readPets());
+      // renderPets(petListInstance.readPets());
       console.log(petListInstance);
     } else {
       console.log("Form is not valid.");
