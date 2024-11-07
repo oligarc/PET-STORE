@@ -21,10 +21,10 @@ export class PetList {
 
   readPets() {
     //When using this function I should have a button that shows the list but have to get to there
-    this.renderPets();
+    return this.pets;
   }
 
-  renderPets() {
+  /*renderPets() {
     const div = document.querySelector(".pet-list");
     div.innerHTML = "";
     this.pets.forEach((pet) => {
@@ -62,4 +62,5 @@ export class PetList {
       div.appendChild(petItem);
     });
   }
+    */
 }

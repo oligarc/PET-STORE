@@ -128,10 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
     element.parentNode.classList.remove("is-not-valid-field");
   }
 
-  /* This is gonna be in my petList.js
-   
-
-  function renderPets() {
+  function renderPets(petList) {
     const div = document.querySelector(".pet-list");
     div.innerHTML = "";
     petList.forEach((pet) => {
@@ -160,14 +157,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 ? "Of course. It's mine"
                 : "It hadn't any owner until now"
             }</span></p>
+            <button class="btn btn-danger mt-2" data-pet-code="${
+              pet.code
+            }">Delete Pet</button>
+            <button class="btn btn-info mt-2">Edit Pet</button>
         </div>
       `;
       div.appendChild(petItem);
-      console.log(petList);
+    });
+
+    const deleteButtons = div.querySelectorAll("button.btn-danger");
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const petCode = event.target.getAttribute("data-pet-code");
+        console.log("Deleting pet with code:", petCode);
+        deletePet(petCode);
+      });
     });
   }
 
-  */
+  function deletePet(petCode) {
+    console.log("Deleting pet with code:", petCode);
+    petListInstance.deletePet(petCode);
+    renderPets(petListInstance.readPets());
+  }
 
   petForm.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -184,8 +197,9 @@ document.addEventListener("DOMContentLoaded", function () {
       }; //Adding a new pet object once the form is validated
 
       //petList.push(newPet);
-      //renderPets();
       petListInstance.addPet(newPet);
+      renderPets(petListInstance.readPets());
+      console.log(petListInstance);
     } else {
       console.log("Form is not valid.");
     }
