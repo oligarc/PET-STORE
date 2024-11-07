@@ -24,6 +24,15 @@ export class PetList {
     return this.pets;
   }
 
+  editPet(petCode, updatedData) {
+    // Buscar la mascota por el código
+    const petIndex = this.pets.findIndex((pet) => pet.code === petCode);
+    if (petIndex !== -1) {
+      // Actualizar los datos de la mascota encontrada
+      this.pets[petIndex] = { ...this.pets[petIndex], ...updatedData };
+    }
+  }
+
   /*renderPets() {
     const div = document.querySelector(".pet-list");
     div.innerHTML = "";

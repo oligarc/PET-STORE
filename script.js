@@ -199,7 +199,9 @@ document.addEventListener("DOMContentLoaded", function () {
               //data-pet-code is gonna store the petcode for each pet
               pet.code
             }">Delete Pet</button>
-            <button class="btn btn-info mt-2">Edit Pet</button>
+            <button class="btn btn-info mt-2" data-code="${
+              pet.code
+            }">Edit Pet</button>
         </div>
       `;
       petItemContainer.appendChild(petItem);
@@ -246,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       //petList.push(newPet);
       petListInstance.addPet(newPet);
-      // renderPets(petListInstance.readPets());
+      //renderPets(petListInstance.readPets());
       console.log(petListInstance);
     } else {
       console.log("Form is not valid.");
