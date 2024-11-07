@@ -22,7 +22,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Im taking the button see-pets to show them, I also need the container where I'm showing the pets in orden to make a display none and display block
   const seePetsButton = document.getElementById("see-pets");
-  const petListContainer = document.querySelector(".pet-list");
+  const petListContainer = document.querySelector(
+    ".row.justify-content-center.align-items-center.pet-list"
+  );
 
   //Functions to validate the form, when isValid = true, we can submit it.
   function validateForm() {
@@ -93,6 +95,16 @@ document.addEventListener("DOMContentLoaded", function () {
       markFieldAsValid(petCode);
     }
 
+    if (!checkCodePet(petCode)) {
+      markFieldAsNotValid(
+        petCode,
+        "Petcode needs to be formed by three leters and three numbers"
+      );
+      isValid = false;
+    } else {
+      markFieldAsValid(petCode);
+    }
+
     return isValid;
   }
 
@@ -128,6 +140,14 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
+  //Need to make a method to test that petCode are only formed by three leters and three numbers
+  //Have to use a regex
+
+  function checkCodePet(petCode) {
+    const codePattern = /^[A-Za-z]{3}\d{3}$/; //Check notes because I won't remember how to do this in 2 days
+    return codePattern.test(petCode.value);
+  }
+
   function markFieldAsNotValid(element, message) {
     const errorMessage = element.parentNode.querySelector(".error-message");
     errorMessage.textContent = message;
@@ -136,17 +156,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function markFieldAsValid(element) {
-    element.parentNode.classList.remove("is-not-valid-field");
+    const errorMessage = element.parentNode.querySelector(".error-message");
+    errorMessage.style.display = "none";
+    element.classList.remove("is-not-valid-field");
   }
 
   //This is gonna render the container in the HTML
   function renderPets(petList) {
-    const div = document.querySelector(".pet-list");
+    const div = document.querySelector(
+      ".row.justify-content-center.align-items-center.pet-list"
+    ); //If you have two or more classes that's the way to get it with querySelector
     div.innerHTML = "";
     petList.forEach((pet) => {
+      const petItemContainer = document.createElement("div");
+      petItemContainer.classList.add("col-12", "col-md-6", "col-lg-3", "mb-4");
+
       const petItem = document.createElement("div");
-      petItem.classList.add("card", "mt-2");
-      petItem.style.width = "20%";
+      petItem.classList.add("card", "mt-2", "h-100");
       petItem.innerHTML = `<img class="card-img-top" src="${
         pet.imageUrl
       }" alt="Title" />
@@ -176,7 +202,8 @@ document.addEventListener("DOMContentLoaded", function () {
             <button class="btn btn-info mt-2">Edit Pet</button>
         </div>
       `;
-      div.appendChild(petItem);
+      petItemContainer.appendChild(petItem);
+      div.appendChild(petItemContainer);
     });
 
     //onclick wasn't working so I added a click event listener, when you push in that button, it gets the petCode and proceeds to delete the pet
@@ -186,13 +213,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const petCode = event.target.getAttribute("data-pet-code"); //Gets the petCode to delete the pet with that code
         console.log("Deleting pet with code:", petCode);
         deletePet(petCode);
+        renderPets(petListInstance.readPets());
       });
     });
   }
 
   //The pets are gonna be shown only when I want it.
   seePetsButton.addEventListener("click", (event) => {
-    petListContainer.style.display = "block";
+    petListContainer.style.display = "inline-flex"; //This over here took me like 2 hours MAAAAAAAAAAAAAAAAAAAAAAAN
     renderPets(petListInstance.readPets());
   });
 
