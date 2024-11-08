@@ -24,12 +24,10 @@ export class PetList {
     return this.pets;
   }
 
-  editPet(petCode, updatedData) {
-    // Buscar la mascota por el código
-    const petIndex = this.pets.findIndex((pet) => pet.code === petCode);
+  editPet(updatedPet) {
+    const petIndex = this.pets.findIndex((pet) => pet.code === updatedPet.code);
     if (petIndex !== -1) {
-      // Actualizar los datos de la mascota encontrada
-      this.pets[petIndex] = { ...this.pets[petIndex], ...updatedData };
+      this.pets[petIndex] = updatedPet; // Actualizar la mascota con el mismo código
     }
   }
 

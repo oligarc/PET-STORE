@@ -20,6 +20,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const petCode = document.getElementById("petCode");
   const sold = document.getElementById("petSold");
 
+  //Capturing inputs for editing
+
+  const editFormContainer = document.getElementById("editFormContainer");
+  const editPetForm = document.getElementById("editPetForm");
+  const editPetName = document.getElementById("editPetName");
+  const editDescription = document.getElementById("editDescription");
+  const editPetUrl = document.getElementById("editPetUrl");
+  const editBirth = document.getElementById("editBirth");
+  const editPetPrice = document.getElementById("editPetPrice");
+  const editPetSold = document.getElementById("editPetSold");
+  const editPetCode = document.getElementById("editPetCode");
+
   //Im taking the button see-pets to show them, I also need the container where I'm showing the pets in orden to make a display none and display block
   const seePetsButton = document.getElementById("see-pets");
   const petListContainer = document.querySelector(
@@ -218,7 +230,46 @@ document.addEventListener("DOMContentLoaded", function () {
         renderPets(petListInstance.readPets());
       });
     });
+
+    const editButtons = div.querySelectorAll("button.btn-info");
+    editButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const petCode = event.target.getAttribute("data-code");
+        const petToEdit = petListInstance
+          .readPets()
+          .find((pet) => pet.code === petCode);
+
+        editPetName.value = petToEdit.petName;
+        editDescription.value = petToEdit.description;
+        editPetUrl.value = petToEdit.imageUrl;
+        editBirth.value = petToEdit.birthday;
+        editPetPrice.value = petToEdit.price;
+        editPetSold.checked = petToEdit.sold;
+        editPetCode.value = petToEdit.code;
+
+        editFormContainer.style.display = "block";
+      });
+    });
   }
+
+  editPetForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const updatedPet = {
+      petName: editPetName.value,
+      description: editDescription.value,
+      imageUrl: editPetUrl.value,
+      birthday: editBirth.value,
+      price: parseFloat(editPetPrice.value),
+      code: editPetCode.value,
+      sold: editPetSold.checked,
+    };
+    petListInstance.editPet(updatedPet);
+    renderPets(petListInstance.readPets());
+
+    // hide the editForm
+    editFormContainer.style.display = "none";
+  });
 
   //The pets are gonna be shown only when I want it.
   seePetsButton.addEventListener("click", (event) => {
@@ -248,6 +299,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       //petList.push(newPet);
       petListInstance.addPet(newPet);
+      console.log("Pet added succesfully");
       //renderPets(petListInstance.readPets());
       console.log(petListInstance);
     } else {

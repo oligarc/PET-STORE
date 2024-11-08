@@ -101,12 +101,75 @@
             value="Add Pet"
           />
 
-          <button class="btn btn-danger p4 mt-3" id="see-pets">See Pets</button>
+          <button type="button" class="btn btn-danger p4 mt-3" id="see-pets">
+            <!-- ========== If you don't specify the type="button" 
+            
+            the button is gonna work as a submit button and its gonna duplicate the adding
+            ========== -->
+
+            See Pets
+          </button>
         </form>
 
         <div
           class="row justify-content-center align-items-center pet-list"
         ></div>
+        <div id="editFormContainer" style="display: none">
+          <form id="editPetForm">
+            <h3>Edit Pet</h3>
+            <div class="inputs">
+              <label for="editPetName">Pet Name:</label>
+              <input
+                type="text"
+                name="editPetName"
+                id="editPetName"
+                class="form-control"
+              />
+            </div>
+            <div class="inputs">
+              <label for="editDescription">Description:</label>
+              <input
+                type="text"
+                name="editDescription"
+                id="editDescription"
+                class="form-control"
+              />
+            </div>
+            <div class="inputs">
+              <label for="editPetUrl">Image URL:</label>
+              <input
+                type="url"
+                name="editPetUrl"
+                id="editPetUrl"
+                class="form-control"
+              />
+            </div>
+            <div class="inputs">
+              <label for="editBirth">Birthday:</label>
+              <input
+                type="date"
+                name="editBirth"
+                id="editBirth"
+                class="form-control"
+              />
+            </div>
+            <div class="inputs">
+              <label for="editPetPrice">Price:</label>
+              <input
+                type="number"
+                name="editPetPrice"
+                id="editPetPrice"
+                class="form-control"
+              />
+            </div>
+            <div class="inputs">
+              <label for="editPetSold">Is it sold?</label>
+              <input type="checkbox" name="editPetSold" id="editPetSold" />
+            </div>
+            <input type="hidden" id="editPetCode" />
+            <button type="submit" class="btn btn-success">Save Changes</button>
+          </form>
+        </div>
       </div>
     </main>
     <footer>
